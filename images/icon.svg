@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- fundo da roleta -->
+  <circle cx="50" cy="50" r="48" fill="#222" stroke="white" stroke-width="3"></circle>
+  
+  <!-- setores coloridos -->
+  <path d="M50 50 L50 2 A48 48 0 0 1 94 29 Z" fill="#e63946"></path>
+  <path d="M50 50 L94 29 A48 48 0 0 1 79 90 Z" fill="#f1fa8c"></path>
+  <path d="M50 50 L79 90 A48 48 0 0 1 21 90 Z" fill="#06d6a0"></path>
+  <path d="M50 50 L21 90 A48 48 0 0 1 6 29 Z" fill="#118ab2"></path>
+  <path d="M50 50 L6 29 A48 48 0 0 1 50 2 Z" fill="#ffb703"></path>
+  
+  <!-- círculo central -->
+  <circle cx="50" cy="50" r="10" fill="white" stroke="black" stroke-width="2"></circle>
+  
+  <!-- ponteiro em cima -->
+  <polygon points="50,0 45,12 55,12" fill="#ff0000" stroke="black" stroke-width="1"></polygon>
+</svg>

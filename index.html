@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Roleta Do Rasga</title>
+    <link rel="icon" type="image/svg+xml" href="./images/icon.svg" />
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="wheel-card">
+            <canvas id="wheel" width="720" height="720"></canvas>
+            <div class="pointer" aria-hidden="true"></div>
+
+            <div class="controls">
+                <button id="spinBtn" class="primary">Girar</button>
+                <button id="stopBtn" class="ghost">Parar (emerg.)</button>
+                <button id="resetBtn">Reset</button>
+            </div>
+
+            <div class="info">
+                <div class="result" id="result">Clique em Girar</div>
+            </div>
+        </div>
+
+        <aside class="sidebar">
+            <div>
+                <label>Nomes e cores dos segmentos (formato: nome|hex). Um por linha:</label>
+                <textarea id="segmentsInput">10|#FF6B6B
+20|#FFD93D
+50|#6BCB77
+100|#4D96FF
+Bônus|#9B5DE5</textarea>
+            </div>
+
+            <div style="display:flex;gap:8px">
+                <div style="flex:1">
+                    <label>Rotação mínima (deg)</label>
+                    <input type="number" id="minRot" value="1800">
+                </div>
+                <div style="flex:1">
+                    <label>Rotação máxima (deg)</label>
+                    <input type="number" id="maxRot" value="3600">
+                </div>
+            </div>
+
+            <div style="display:flex;gap:8px">
+                <button id="applyBtn">Aplicar mudanças</button>
+                <button id="randomizeBtn" class="ghost">Aleatorizar escolha</button>
+            </div>
+
+            <div>
+                <label>Histórico (últimos 10)</label>
+                <div id="history" style="display:flex;flex-direction:column;gap:6px;padding-top:8px"></div>
+            </div>
+        </aside>
+        <footer>Mestre Rasga fez a boa</footer>
+    </div>
+    <!--<script src="./js/script.js"></script>-->
+</body>
+</html>
