@@ -46,10 +46,12 @@ const canvas = document.getElementById('wheel');
                 ctx.save();
                 ctx.translate(cx, cy);
                 ctx.rotate(start + arc / 2);
-                ctx.textAlign = 'right';
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 20px sans-serif';
-                ctx.fillText(segments[i].label, radius - 14, 8);
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                const fontSize = Math.max(18, radius / 10);
+                ctx.font = `bold ${fontSize}px sans-serif`;
+                ctx.fillStyle = '#000000';
+                ctx.fillText(segments[i].label, radius - 60, 0);
                 ctx.restore();
             }
 
