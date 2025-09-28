@@ -28,7 +28,7 @@ function loadSegmentsFromInput() {
 function randomColor() {
     const hue = Math.floor(Math.random() * 360);
     const saturation = 70 + Math.random() * 20;
-    const lightness = 45 + Math.random() * 10;
+    const lightness = 45 + Math.random() * 10; 
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 
@@ -51,9 +51,9 @@ function drawWheel() {
         ctx.rotate(start + arc / 2);
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        const fontSize = Math.max(16, radius / 10);
+        const fontSize = Math.max(18, radius / 10);
         ctx.font = `bold ${fontSize}px sans-serif`;
-        ctx.fillStyle = '#000';
+        ctx.fillStyle = '#ffffff';
         ctx.fillText(segments[i].label, radius - 60, 0);
         ctx.restore();
     }
