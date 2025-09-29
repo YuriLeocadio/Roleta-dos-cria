@@ -28,7 +28,7 @@ function loadSegmentsFromInput() {
 function randomColor() {
     const hue = Math.floor(Math.random() * 360);
     const saturation = 70 + Math.random() * 20;
-    const lightness = 45 + Math.random() * 10; 
+    const lightness = 25 + Math.random() * 15;
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 
@@ -54,6 +54,9 @@ function drawWheel() {
         const fontSize = Math.max(18, radius / 10);
         ctx.font = `bold ${fontSize}px sans-serif`;
         ctx.fillStyle = '#ffffff';
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = '#000000';
+        ctx.strokeText(segments[i].label, radius - 60, 0);
         ctx.fillText(segments[i].label, radius - 60, 0);
         ctx.restore();
     }
@@ -67,37 +70,41 @@ function drawWheel() {
 function spin() {
     if (isSpinning) return;
     isSpinning = true;
-    resultEl.textContent = 'Girando...';
 
-    const minDeg = Number(document.getElementById('minRot').value) || 1800;
-    const maxDeg = Number(document.getElementById('maxRot').value) || 3600;
-    const deg = Math.floor(Math.random() * (maxDeg - minDeg + 1)) + minDeg;
+    const segCount = segments.length;
+    const arc = (2 * Math.PI) / segCount;
 
-    const target = (deg * Math.PI / 180) + (Math.random() * Math.PI * 2);
+    // sorteia o índice do segmento vencedor
+    const winnerIndex = Math.floor(Math.random() * segCount);
 
-    const duration = 4000 + Math.random() * 2000;
-    const startTime = performance.now();
-    const initialAngle = startAngle;
-    const finalAngle = startAngle + target;
+    // calcula ângulo do centro do segmento
+    const winnerAngle = (segCount - winnerIndex - 0.5) * arc;
+
+    // adiciona alguns giros completos aleatórios (3 a 6 giros)
+    const extraSpins = Math.floor(Math.random() * 3) + 3;
+    const targetAngle = (extraSpins * 6 * Math.PI) + winnerAngle;
+
+    const duration = 4000;
+    const start = performance.now();
 
     function animate(now) {
-        const t = Math.min(1, (now - startTime) / duration);
-        const eased = 1 - Math.pow(1 - t, 3);
-        startAngle = initialAngle + (finalAngle - initialAngle) * eased;
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+
+        startAngle = targetAngle * easeOut;
         drawWheel();
 
-        if (t < 1 && isSpinning) {
-            animationId = requestAnimationFrame(animate);
+        if (progress < 1) {
+            requestAnimationFrame(animate);
         } else {
             isSpinning = false;
-            cancelAnimationFrame(animationId);
-            animationId = null;
-            startAngle = startAngle % (2 * Math.PI);
-            announceResult();
+            const winner = segments[winnerIndex].label;
+            announceResult(winner);
         }
     }
 
-    animationId = requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
 }
 
 function announceResult() {
@@ -180,7 +187,7 @@ drawWheel();
 })();
 
 window.addEventListener('keydown', e => {
-    if (e.code === 'Space') {
+    if (e.code === 'Ctrl') {
         e.preventDefault();
         spin();
     }
